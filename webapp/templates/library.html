@@ -1,0 +1,149 @@
+{% extends 'userbase.html' %}
+{% block content %}
+<center>
+    <font size="" color="#ff0000"><strong>{{msg}}</strong></font>
+
+    <h2>Library Management</h2>
+    <br><br>
+
+    <!DOCTYPE html>
+    <html>
+
+    <head>
+
+        <title>Library</title>
+
+        <style>
+            .text,
+            .text2 {
+                display: inline-block;
+            }
+
+            .div1,
+            .div2,
+            .div3,
+            .div4 {
+                display: inline-block;
+            }
+
+            .button {
+                margin-left: 120px;
+                margin-top: 10px;
+            }
+
+            .div4 {
+                margin-left: 20px;
+            }
+
+            .button {
+                height: 35px;
+                width: 88px;
+                border: none;
+                border-radius: 40px;
+                background-color: greenyellow;
+            }
+        </style>
+
+        <!-- Include jQuery -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    </head>
+                  
+    <body>
+                       
+        <div>
+
+            <div class="div1">
+                <p class="text">Choose Stream </p>
+            </div>
+
+            <div class="div2">
+                <input id="streamInput" type="text" placeholder="CSC/ECE/IT">
+            </div>
+
+        </div>
+                                 
+        <div>
+
+            <div class="div3">
+                <p class="text2">Book Name</p>
+
+            </div>
+
+            <div class="div4">
+                <input id="bookInput" class="box2" type="text" placeholder="Enter Book Name">
+            </div><br>
+
+            <button id="submitButton" class="button">Submit</button>
+
+        </div>
+
+        <div id="response"></div>
+        <div id="error"></div>
+                       
+        <script>
+            $(document).ready(function () {
+                $('#submitButton').click(function () {
+                    var stream = $('#streamInput').val();
+                    var bookName = $('#bookInput').val();
+                    console.log(stream, bookName);
+                
+                    // Function to retrieve CSRF token from cookies
+                    function getCookie(name) {
+                        var cookieValue = null;
+                        if (document.cookie && document.cookie !== '') {
+                            var cookies = document.cookie.split(';');
+                            for (var i = 0; i < cookies.length; i++) {
+                                var cookie = cookies[i].trim();
+                                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                                    break;
+                                }
+                            }
+                        }
+                        return cookieValue;
+                    }
+                
+
+                    $.ajax
+                (
+                        
+                    {
+                        type: 'POST',
+                        url: 'http://127.0.0.1:8000/api/mycustomview/',
+                        headers: {
+                            'X-CSRFToken': getCookie('csrftoken')
+                        },
+                    
+                        data: {
+                            stream_name: stream,
+                            title: bookName
+                        },
+                    
+                        success: function (response, status, xhr) 
+                        {
+                            if (xhr.status === 200) 
+                            {
+                                $('#response').text('Success: ' + xhr.responseText);
+                            }
+                        },
+                        
+                        error: function (xhr, status, error) {
+                            if (xhr.status != 200) {
+                                $('#error').text('Error: ' + xhr.responseText);
+                            }
+                        }
+                    }
+                
+                );
+                });
+            });
+        </script>
+
+    </body>
+
+    </html>
+
+    <br><br>
+
+{% endblock %}

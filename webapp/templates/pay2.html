@@ -1,0 +1,69 @@
+{% extends 'userbase.html' %}
+{% block content %}
+{% load static %}
+
+<form id="paymentForm" method="post" action="/paymentcomp2/">
+    {% csrf_token %}
+    <h2><strong>Payment</strong></h2>
+    <table id="tab" width="40%" align="center">
+        <tr>
+            <td>Amount</td>
+            <td><input type="text" name="amt" value="{{amt}}" class="form-control" required placeholder="" readonly></td>
+        </tr>
+        <tr>
+            <td>Debit or Credit Card Number</td>
+            <td><input type="text" name="cardNumber" id="cardNumber" class="form-control" required></td>
+        </tr>
+        <tr>
+            <td>Expiry</td>
+            <td><input type="month" name="expiry" id="expiry" class="form-control" required></td>
+        </tr>
+        <tr>
+            <td>CVV</td>
+            <td><input type="number" name="cvv" id="cvv" class="form-control" required></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="submit" value="Pay" class="form-control" required></td>
+        </tr>
+    </table>
+</form>
+
+<script>
+    document.getElementById('paymentForm').addEventListener('submit', function(event) {
+        // Prevent the form from submitting if validation fails
+        if (!validateForm()) {
+            event.preventDefault();
+        }
+    });
+
+    function validateForm() {
+        var cardNumber = document.getElementById('cardNumber').value;
+        var expiry = document.getElementById('expiry').value;
+        var cvv = document.getElementById('cvv').value;
+
+        // Simple validation for card number (16 digits)
+        if (cardNumber.length !== 16 || isNaN(cardNumber)) {
+            alert('Please enter a valid 16-digit card number.');
+            return false;
+        }
+
+        // Expiry should not be in the past
+        var today = new Date();
+        var selectedExpiry = new Date(expiry);
+        if (selectedExpiry < today) {
+            alert('Please select a valid expiry date.');
+            return false;
+        }
+
+        // Simple validation for CVV (3 digits)
+        if (cvv.length !== 3 || isNaN(cvv)) {
+            alert('Please enter a valid 3-digit CVV.');
+            return false;
+        }
+
+        return true; // Form is valid
+    }
+</script>
+
+{% endblock %}

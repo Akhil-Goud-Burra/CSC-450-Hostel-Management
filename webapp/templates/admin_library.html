@@ -1,0 +1,136 @@
+{% extends 'adminbase.html' %}
+{% block content %}
+<center>
+
+<font size="" color="#ff0000"><strong>{{msg}}</strong></font>
+
+<h2>Library Management</h2>
+<br><br>
+
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+
+$(document).ready(function() {
+
+    $("#streamBtn").click(function() {
+        $("#div1").fadeToggle();
+    });
+    
+    $("#bookBtn").click(function() {
+        $("#div2").fadeToggle();
+    });
+    
+    $("#availabilityBtn").click(function() {
+        $("#div3").fadeToggle();
+    });
+    
+    $("#csbtn").click(function() {
+        $("#divcs").fadeToggle();
+    });
+    
+    $("#usbtn").click(function() {
+        $("#divus").fadeToggle();
+    });
+    
+    $("#dsbtn").click(function() {
+        $("#divds").fadeToggle();
+    });
+
+});
+
+</script>
+</head>
+
+<body>
+
+<br><br><br><br><br>
+
+
+
+<button id="streamBtn">Stream</button><br><br>
+
+<div id="div1" style="display: none;">
+    <br>
+
+    <button id="csbtn" onclick="window.open('http://127.0.0.1:8000/api/streams/create/', '_blank')">Create Stream</button>
+    <!-- Open in new tab: http://127.0.0.1:8000/api/streams/create/ -->
+
+    <button id="rsbtn" onclick="window.open('http://127.0.0.1:8000/api/streams/retrieve/', '_blank')">Read Stream</button>
+    <!-- Open in new tab: http://127.0.0.1:8000/api/streams/retrieve/ -->
+
+    <button id="usbtn" onclick="window.open('http://127.0.0.1:8000/api/streams/1/update/', '_blank')">Update Stream</button>
+    <!-- Open in new tab: http://127.0.0.1:8000/api/streams/1/update/ -->
+
+    <button id="dsbtn" onclick="window.open('http://127.0.0.1:8000/api/streams/1/delete/', '_blank')">Delete Stream</button>
+    <!-- Open in new tab: http://127.0.0.1:8000/api/streams/1/delete/ -->
+
+    <br><br>
+  </div><br>
+
+
+
+
+
+
+<button id="bookBtn">Book</button><br><br>
+
+<div id="div2" style="display: none;">
+    <br>
+
+    <button id="csbtn" onclick="window.open('http://127.0.0.1:8000/api/create/book/', '_blank')" >Create Book</button>
+    <!-- Open in new tab: http://127.0.0.1:8000/api/create/book/ -->
+
+    <button id="rsbtn" onclick="window.open('http://127.0.0.1:8000/api/retrieve/books/', '_blank')">Read Book</button>
+    <!-- Open in new tab: http://127.0.0.1:8000/api/retrieve/books/ -->
+
+    <button id="usbtn" onclick="window.open('http://127.0.0.1:8000/api/book/1/update', '_blank')">Update Book</button>
+    <!-- Open in new tab: http://127.0.0.1:8000/api/book/1/update -->
+
+    <button id="dsbtn" onclick="window.open('http://127.0.0.1:8000/api/book/3/delete', '_blank')">Delete Book</button>
+    <!-- Open in new tab: http://127.0.0.1:8000/api/book/3/delete -->
+
+    <br><br>
+</div><br>
+  
+
+
+
+
+
+
+<button id="availabilityBtn">Availability</button><br><br>
+
+<div id="div3" style="display: none;"> 
+  <br>
+
+  <button id="csbtn" onclick="window.open('http://127.0.0.1:8000/api/create/book/availability/', '_blank')">Create Availability</button>
+  <!-- Open in new tab: http://127.0.0.1:8000/api/create/book/availability/ -->
+
+
+  <button id="rsbtn" onclick="window.open('http://127.0.0.1:8000/api/retrieve/book/availability/', '_blank')">Read Availability</button>
+  <!-- Open in new tab: http://127.0.0.1:8000/api/retrieve/book/availability/ -->
+
+
+  <button id="usbtn" onclick="window.open('http://127.0.0.1:8000/api/book/1/availability/update', '_blank')">Update Availability</button>
+  <!-- Open in new tab: http://127.0.0.1:8000/api/book/1/availability/update -->
+
+
+  <button id="dsbtn" onclick="window.open('http://127.0.0.1:8000/api/book/2/availability/delete', '_blank')">Delete Availability</button>
+  <!-- Open in new tab: http://127.0.0.1:8000/api/book/2/availability/delete -->
+
+
+  <br><br>
+</div>
+
+
+
+
+</body>
+</html>
+
+<br><br>
+
+{% endblock %}

@@ -98,6 +98,7 @@ def get_stream_id(request):
 class StreamCreateView(generics.ListCreateAPIView):
     queryset = Stream.objects.all()
     serializer_class = StreamSerializer
+    permission_classes = [IsAuthenticated]
     throttle_classes = [TwentyCallsPerMinute]
 
     def post(self, request, *args, **kwargs):
@@ -120,6 +121,7 @@ class StreamCreateView(generics.ListCreateAPIView):
 class StreamRetrieveView(generics.ListAPIView): # get
     queryset = Stream.objects.all()
     serializer_class = StreamSerializer
+    permission_classes = [IsAuthenticated]
     throttle_classes = [TenCallsPerMinute]
 
     def get(self, request, *args, **kwargs):
@@ -132,6 +134,7 @@ class StreamRetrieveView(generics.ListAPIView): # get
 class StreamUpdateView(generics.RetrieveUpdateAPIView):
     queryset = Stream.objects.all()
     serializer_class = StreamSerializer
+    permission_classes = [IsAuthenticated]
     throttle_classes = [TwentyCallsPerMinute]
 
     def put(self, request, *args, **kwargs):
@@ -155,6 +158,7 @@ class StreamUpdateView(generics.RetrieveUpdateAPIView):
 class StreamDeleteView(generics.RetrieveDestroyAPIView):
     queryset = Stream.objects.all()
     serializer_class = StreamSerializer
+    permission_classes = [IsAuthenticated]
     throttle_classes = [TwentyCallsPerMinute]
 
     def destroy(self, request, *args, **kwargs):
@@ -177,6 +181,7 @@ from .serializers import BookSerializer
 class BookCreateView(generics.ListCreateAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
+    permission_classes = [IsAuthenticated]
 
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
@@ -189,6 +194,7 @@ class BookCreateView(generics.ListCreateAPIView):
 class BookRetrieveView(generics.ListAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
+    permission_classes = [IsAuthenticated]
 
     def get(self, request, *args, **kwargs):
         queryset = self.filter_queryset(self.get_queryset())
@@ -199,6 +205,7 @@ class BookRetrieveView(generics.ListAPIView):
 class BookUpdateView(generics.RetrieveUpdateAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
+    permission_classes = [IsAuthenticated]
 
     def put(self, request, *args, **kwargs):
         instance = self.get_object()
@@ -211,6 +218,7 @@ class BookUpdateView(generics.RetrieveUpdateAPIView):
 class BookDeleteView(generics.RetrieveDestroyAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
+    permission_classes = [IsAuthenticated]
 
     def custom_delete(self, instance):
         instance.delete()
@@ -230,7 +238,9 @@ from .serializers import AvailabilitySerializer
 class AvailabilityCreateView(generics.ListCreateAPIView):
     queryset = Availability.objects.all()
     serializer_class = AvailabilitySerializer
+    permission_classes = [IsAuthenticated]
     throttle_classes = [TwentyCallsPerMinute]
+
 
     def post(self, request, *args, **kwargs):
 
@@ -249,6 +259,7 @@ class AvailabilityCreateView(generics.ListCreateAPIView):
 class AvailabilityRetriveView(generics.ListAPIView):
     queryset = Availability.objects.all()
     serializer_class = AvailabilitySerializer
+    permission_classes = [IsAuthenticated]
     throttle_classes = [TenCallsPerMinute]
     
 
@@ -261,7 +272,9 @@ class AvailabilityRetriveView(generics.ListAPIView):
 class AvailabilityUpdateView(generics.RetrieveUpdateAPIView):
     queryset = Availability.objects.all()
     serializer_class = AvailabilitySerializer
+    permission_classes = [IsAuthenticated]
     throttle_classes = [TwentyCallsPerMinute]
+    
 
     def put(self, request, *args, **kwargs):
 
@@ -279,7 +292,7 @@ class AvailabilityUpdateView(generics.RetrieveUpdateAPIView):
 class AvailabilityDeleteView(generics.RetrieveDestroyAPIView):
     queryset = Availability.objects.all()
     serializer_class = AvailabilitySerializer  
-    #permission_classes = [IsAuthenticated]  
+    permission_classes = [IsAuthenticated]  
     throttle_classes = [TwentyCallsPerMinute]    
 
     def destroy(self, request, *args, **kwargs):
